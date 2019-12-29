@@ -2,7 +2,7 @@ jobs:
 - job: runOnCustomMachines # = custom machines
   condition: not(eq(variables['MODE'], 'e2e'))
   pool:
-    name: Default
+    vmImage: 'ubuntu-latest'
   timeoutInMinutes: 120
   steps:
   # Azure pipelines can only evaluate conditions with the build repo name in the steps.
