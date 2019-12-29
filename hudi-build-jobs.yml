@@ -8,7 +8,6 @@ jobs:
   # Azure pipelines can only evaluate conditions with the build repo name in the steps.
   # if the repo == "apachehudi-ci/incubator-hudi", we execute the steps
   - task: Maven@3
-    condition: eq(variables['Build.Repository.Name'], 'apachehudi-ci/incubator-hudi')
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
