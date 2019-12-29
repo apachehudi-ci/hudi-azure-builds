@@ -1,4 +1,4 @@
-jobs
+jobs:
 - job: runHudiTestSuite
   pool: # we run the end to end tests on the msft hosted agents
     vmImage: 'ubuntu-latest'
