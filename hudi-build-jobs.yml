@@ -1,4 +1,25 @@
 jobs:
+- job: runOnCustomMachines # = custom machines
+  condition: not(eq(variables['MODE'], 'e2e'))
+  pool:
+    name: Default
+  timeoutInMinutes: 120
+  steps:
+  # Azure pipelines can only evaluate conditions with the build repo name in the steps.
+  # if the repo == "apachehudi-ci/incubator-hudi", we execute the steps
+  - task: Maven@3
+    condition: eq(variables['Build.Repository.Name'], 'apachehudi-ci/incubator-hudi')
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'clean install'
+      timeoutInMinutes: 120
+
 - job: runHudiTestSuite
   pool: # we run the end to end tests on the msft hosted agents
     vmImage: 'ubuntu-latest'
